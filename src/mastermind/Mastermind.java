@@ -21,7 +21,7 @@ public class Mastermind extends javax.swing.JFrame {
     int finalFor = 3;
     //variables para el codificador
     Random generadorNumeros = new Random();
-    String numeros;
+    String numeros = "";
     String codificador = "";
     //para que no se repita
     //tendre que quitar estas variables
@@ -49,12 +49,19 @@ public class Mastermind extends javax.swing.JFrame {
         //crear el codigo secreto
         for(int i=inicioFor; i<=finalFor; i++){
             numeros = String.valueOf(generadorNumeros.nextInt(8));
-            codificador += String.valueOf(numeros);
+            int q=0;
+            System.out.println(codificador.charAt(q));
+            System.out.println(numeros.charAt(i));
+
             
-            //pasar el char a entero no al valor unicode
-            for(int q=i; q>=inicioFor; q--){
-                if(codificador.charAt(q) == numeros.charAt(i)){
+            codificador += numeros;
+            
+            if(i != inicioFor){
+                for( q=i; q>inicioFor; q--){
+                    if(codificador.charAt(q) == numeros.charAt(i)){
                     numeros = String.valueOf(generadorNumeros.nextInt(8));
+                    q = i;
+                    }
                 }
             }
             jTextField1Patron.setText(codificador);
@@ -232,9 +239,9 @@ public class Mastermind extends javax.swing.JFrame {
         cadena = jTextField1MeterCodigo.getText();
         for(int j=inicioFor; j<=finalFor; j++){
             for(int k=inicioFor; k<=finalFor; k++){
-                if(codificador.charAt(j)==(cadena.charAt(k))){
+                if(codificador.charAt(j) == (cadena.charAt(k))){
                     blancas++;
-                    if(codificador.charAt(k)==(cadena.charAt(k))){
+                    if(codificador.charAt(k) == (cadena.charAt(k))){
                         rojas++;
                     }
                 }
@@ -250,8 +257,10 @@ public class Mastermind extends javax.swing.JFrame {
         
         //terminar juego
         
-        if(rojas >= 4){
-            new VentanaGanador(this, true).setVisible(true);
+        for(int w=inicioFor; w<=finalFor; w++){
+            if(cadena.charAt(w) == codificador.charAt(w)){
+                new VentanaGanador(this, true).setVisible(true);                
+            }
         }
     }//GEN-LAST:event_jButton1ComprobarActionPerformed
 
