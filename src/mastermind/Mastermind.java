@@ -53,8 +53,7 @@ public class Mastermind extends javax.swing.JFrame {
             
             //pasar el char a entero no al valor unicode
             for(int q=i; q>=inicioFor; q--){
-                if(codificador.charAt(i) == Integer.valueOf(numeros)){
-                    System.out.println("hola");
+                if(codificador.charAt(q) == numeros.charAt(i)){
                     numeros = String.valueOf(generadorNumeros.nextInt(8));
                 }
             }
