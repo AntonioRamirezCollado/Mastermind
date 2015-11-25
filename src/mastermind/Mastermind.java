@@ -17,11 +17,11 @@ public class Mastermind extends javax.swing.JFrame {
 
     //Crear variables y objetos
     //variables para todo el juego
-    int inioFor = 0;
+    int inicioFor = 0;
     int finalFor = 3;
     //variables para el codificador
     Random generadorNumeros = new Random();
-    int numeros;
+    String numeros;
     String codificador = "";
     //para que no se repita
     //tendre que quitar estas variables
@@ -47,10 +47,21 @@ public class Mastermind extends javax.swing.JFrame {
         jTextField1Rojas.setText(sinFichas);
         jTextField1Blancas.setText(sinFichas); 
         //crear el codigo secreto
-        for(int i=inioFor; i<=finalFor; i++){
-            numeros = generadorNumeros.nextInt(8); 
-            System.out.println(i+ " " + numeros);
-
+        for(int i=inicioFor; i<=finalFor; i++){
+            numeros = String.valueOf(generadorNumeros.nextInt(8));
+            codificador += String.valueOf(numeros);
+            
+            //pasar el char a entero no al valor unicode
+            for(int q=i; q>=inicioFor; q--){
+                if(codificador.charAt(i) == Integer.valueOf(numeros)){
+                    System.out.println("hola");
+                    numeros = String.valueOf(generadorNumeros.nextInt(8));
+                }
+            }
+            jTextField1Patron.setText(codificador);
+            
+           
+        /* DE ESTA MANERA FUNCIONA
             switch(i){
                 case 0:{
                     primerAleatorio = numeros;
@@ -61,7 +72,6 @@ public class Mastermind extends javax.swing.JFrame {
                     while(primerAleatorio == segundoAleatorio){
                         numeros = generadorNumeros.nextInt(8); 
                         segundoAleatorio = numeros;
-                        System.out.println("segundo " + numeros);
                     }
                     break;
                 
@@ -71,7 +81,6 @@ public class Mastermind extends javax.swing.JFrame {
                     while(tercerAleatorio == primerAleatorio || tercerAleatorio == segundoAleatorio){
                         numeros = generadorNumeros.nextInt(8); 
                         tercerAleatorio = numeros;
-                        System.out.println("tercero " + numeros);
                     }
                     break;
                 }
@@ -81,13 +90,14 @@ public class Mastermind extends javax.swing.JFrame {
                             || cuartoAleatorio == tercerAleatorio){
                         numeros = generadorNumeros.nextInt(8); 
                         cuartoAleatorio = numeros;
-                        System.out.println("cuarto " + numeros);
                     }
                     break;
                 }
             }
+            
         codificador += String.valueOf(numeros);
         jTextField1Patron.setText(codificador);
+        */
         }
     }
 
@@ -221,8 +231,8 @@ public class Mastermind extends javax.swing.JFrame {
         rojas = Integer.valueOf(sinFichas);
 
         cadena = jTextField1MeterCodigo.getText();
-        for(int j=inioFor; j<=finalFor; j++){
-            for(int k=inioFor; k<=finalFor; k++){
+        for(int j=inicioFor; j<=finalFor; j++){
+            for(int k=inicioFor; k<=finalFor; k++){
                 if(codificador.charAt(j)==(cadena.charAt(k))){
                     blancas++;
                     if(codificador.charAt(k)==(cadena.charAt(k))){
