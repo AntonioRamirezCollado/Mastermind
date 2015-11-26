@@ -6,6 +6,7 @@
 package mastermind;
 
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 
 
@@ -21,14 +22,9 @@ public class Mastermind extends javax.swing.JFrame {
     int finalFor = 3;
     //variables para el codificador
     Random generadorNumeros = new Random();
-    String numeros = "";
-    String codificador = "";
-    //para que no se repita
-    //tendre que quitar estas variables
-    int primerAleatorio = 0;
-    int segundoAleatorio = 0;
-    int tercerAleatorio = 0;
-    int cuartoAleatorio = 0;
+    char numeros;
+    char inicializarNumero = '0';
+    String codificador = " ";
 
     //variables para las fichas
     int rojas = 0;
@@ -47,63 +43,28 @@ public class Mastermind extends javax.swing.JFrame {
         jTextField1Rojas.setText(sinFichas);
         jTextField1Blancas.setText(sinFichas); 
         //crear el codigo secreto
+        //le sumamos el codigo char del 0
+        /*
+        Controlo que Q siempre sea mayor que 0 porque al entrar en el for 
+        tomaria valor -1 y esa posicion en un String no puede existir.
+        Todo esto es debido a que los String empiezan en la posición 0 y no en la 1.
+        Por eso al String le doy el primer valor como un espacio para hacer las 
+        todas las comprobaciones
+        */
         for(int i=inicioFor; i<=finalFor; i++){
-            numeros = String.valueOf(generadorNumeros.nextInt(8));
+            numeros = (char) ((char)generadorNumeros.nextInt(8) + inicializarNumero);
             int q=0;
-            System.out.println(codificador.charAt(q));
-            System.out.println(numeros.charAt(i));
-
-            
-            codificador += numeros;
-            
             if(i != inicioFor){
                 for( q=i; q>inicioFor; q--){
-                    if(codificador.charAt(q) == numeros.charAt(i)){
-                    numeros = String.valueOf(generadorNumeros.nextInt(8));
-                    q = i;
+                    if(numeros == codificador.charAt(q)){
+                        numeros = (char) ((char)generadorNumeros.nextInt(8) + inicializarNumero);
+                        q = i+1;
                     }
+                    
                 }
             }
+            codificador += numeros;
             jTextField1Patron.setText(codificador);
-            
-           
-        /* DE ESTA MANERA FUNCIONA
-            switch(i){
-                case 0:{
-                    primerAleatorio = numeros;
-                    break;
-                }
-                case 1:{
-                    segundoAleatorio = numeros;
-                    while(primerAleatorio == segundoAleatorio){
-                        numeros = generadorNumeros.nextInt(8); 
-                        segundoAleatorio = numeros;
-                    }
-                    break;
-                
-                }
-                case 2:{
-                    tercerAleatorio = numeros;
-                    while(tercerAleatorio == primerAleatorio || tercerAleatorio == segundoAleatorio){
-                        numeros = generadorNumeros.nextInt(8); 
-                        tercerAleatorio = numeros;
-                    }
-                    break;
-                }
-                case 3:{
-                    cuartoAleatorio = numeros;
-                    while(cuartoAleatorio == primerAleatorio || cuartoAleatorio == segundoAleatorio 
-                            || cuartoAleatorio == tercerAleatorio){
-                        numeros = generadorNumeros.nextInt(8); 
-                        cuartoAleatorio = numeros;
-                    }
-                    break;
-                }
-            }
-            
-        codificador += String.valueOf(numeros);
-        jTextField1Patron.setText(codificador);
-        */
         }
     }
 
@@ -236,7 +197,7 @@ public class Mastermind extends javax.swing.JFrame {
         blancas = Integer.valueOf(sinFichas);
         rojas = Integer.valueOf(sinFichas);
 
-        cadena = jTextField1MeterCodigo.getText();
+        cadena = " " + jTextField1MeterCodigo.getText();
         for(int j=inicioFor; j<=finalFor; j++){
             for(int k=inicioFor; k<=finalFor; k++){
                 if(codificador.charAt(j) == (cadena.charAt(k))){
@@ -255,8 +216,9 @@ public class Mastermind extends javax.swing.JFrame {
         jTextField1Blancas.setText(String.valueOf(blancas)); 
         jTextArea1Descodificador.append(cadena + "\n");
         
-        //terminar juego
         
+        
+        //terminar juego el mensaje no puede ir aky
         for(int w=inicioFor; w<=finalFor; w++){
             if(cadena.charAt(w) == codificador.charAt(w)){
                 new VentanaGanador(this, true).setVisible(true);                
@@ -316,3 +278,20 @@ public class Mastermind extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }
+
+
+
+//factorioal
+/*
+try{
+                int numero = Integer.valueOf(jTextField1Patron.getText());
+                float resultado = 1;
+                for(int i=numero; i<=2; i--){
+                    resultado *= i;
+                    
+                }
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Introducir solo numeros\n" + "ERROR " + ex.getMessage());
+                ex.printStackTrace();
+            }
+*/
