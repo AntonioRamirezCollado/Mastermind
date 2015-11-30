@@ -18,22 +18,22 @@ public class Mastermind extends javax.swing.JFrame {
 
     //Crear variables y objetos
     //variables para todo el juego
-    int inicioFor = 0;
-    int finalFor = 3;
+    final int INICIO_FOR = 0;
+    final int FINAL_FOR = 3;
     //variables para el codificador
     Random generadorNumeros = new Random();
     char numeros;
-    char inicializarNumero = '0';
+    final char INICIALIZAR_NUMERO = '0';
     String codificador = "";
 
     //variables para las fichas
     int rojas = 0;
     int blancas = 0;
-    String sinFichas = "0";
+    final String SIN_FICHAS = "0";
     //variables para el descodificador
-    String cadena = "";
-    int numeroIntento = 0;
-    int ultimoIntento = 10;
+    String cadena = "";     //esta variable la pongo solo por aclarar el codigo
+    int numeroIntento = 1;
+    final int ULTIMO_NUMERO = 10;
 
     
     
@@ -42,20 +42,19 @@ public class Mastermind extends javax.swing.JFrame {
         initComponents();
         //Programa
         //inicializar campos
-        jTextField1Rojas.setText(sinFichas);
-        jTextField1Blancas.setText(sinFichas); 
+        jTextField1Rojas.setText(SIN_FICHAS);
+        jTextField1Blancas.setText(SIN_FICHAS); 
         //crear el codigo secreto
-        //le sumamos el codigo char del 0
-        for(int i=inicioFor; i<=finalFor; i++){
-            numeros = (char)(generadorNumeros.nextInt(8) + inicializarNumero);
-            int q=0;
-            if(i != inicioFor){
-                for( q=i-1; q>=inicioFor; q--){
+        //le sumamos el codigo char del 0                
+        for(int i=INICIO_FOR; i<=FINAL_FOR; i++){
+            //la suma de un char y un entero es un entero ya que este tipo de dato es mayor .
+            numeros = (char)(generadorNumeros.nextInt(8) + INICIALIZAR_NUMERO);
+            if(i != INICIO_FOR){
+                for(int q=i-1; q>=INICIO_FOR; q--){
                     if(numeros == codificador.charAt(q)){
-                        numeros = (char)(generadorNumeros.nextInt(8) + inicializarNumero);
+                        numeros = (char)(generadorNumeros.nextInt(8) + INICIALIZAR_NUMERO);
                         q = i;
                     }
-                    
                 }
             }
             codificador += numeros;
@@ -187,15 +186,15 @@ public class Mastermind extends javax.swing.JFrame {
 
     private void jButton1ComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ComprobarActionPerformed
         //introduccion del codigo del jugador
-        jTextField1Rojas.setText(sinFichas);
-        jTextField1Blancas.setText(sinFichas); 
-        blancas = Integer.valueOf(sinFichas);
-        rojas = Integer.valueOf(sinFichas);
 
-        cadena = jTextField1MeterCodigo.getText();
-        if(numeroIntento <= ultimoIntento){
-            for(int j=inicioFor; j<=finalFor; j++){
-                for(int k=inicioFor; k<=finalFor; k++){
+        if(numeroIntento <= ULTIMO_NUMERO){
+            jTextField1Rojas.setText(SIN_FICHAS);
+            jTextField1Blancas.setText(SIN_FICHAS); 
+            blancas = Integer.valueOf(SIN_FICHAS);
+            rojas = Integer.valueOf(SIN_FICHAS);
+            cadena = jTextField1MeterCodigo.getText();
+            for(int j=INICIO_FOR; j<=FINAL_FOR; j++){
+                for(int k=INICIO_FOR; k<=FINAL_FOR; k++){
                     if(codificador.charAt(j) == (cadena.charAt(k))){
                         blancas++;
                         if(codificador.charAt(k) == (cadena.charAt(k))){
@@ -205,21 +204,24 @@ public class Mastermind extends javax.swing.JFrame {
 
                 }
             }
+            if(blancas > Integer.valueOf(SIN_FICHAS)){
+                blancas -= rojas;
+            }
+            jTextField1Rojas.setText(String.valueOf(rojas));
+            jTextField1Blancas.setText(String.valueOf(blancas)); 
+            jTextArea1Descodificador.append(cadena + "\n");
+
+            //terminar juego
+            if(cadena.equals(codificador)){
+                new VentanaGanador(this, true).setVisible(true);                
+            }
+            if(numeroIntento == ULTIMO_NUMERO){
+                new VentanaPerdedor(this, true).setVisible(true);
+            }
             numeroIntento++;
         }
         else{
             new VentanaPerdedor(this, true).setVisible(true);
-        }
-        if(blancas > Integer.valueOf(sinFichas)){
-            blancas -= rojas;
-        }
-        jTextField1Rojas.setText(String.valueOf(rojas));
-        jTextField1Blancas.setText(String.valueOf(blancas)); 
-        jTextArea1Descodificador.append(cadena + "\n");
-        
-        //terminar juego el mensaje no puede ir aky
-        if(cadena.equals(codificador)){
-            new VentanaGanador(this, true).setVisible(true);                
         }
     }//GEN-LAST:event_jButton1ComprobarActionPerformed
 
@@ -278,17 +280,3 @@ public class Mastermind extends javax.swing.JFrame {
 
 
 
-//factorioal
-/*
-try{
-                int numero = Integer.valueOf(jTextField1Patron.getText());
-                float resultado = 1;
-                for(int i=numero; i<=2; i--){
-                    resultado *= i;
-                    
-                }
-            }catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Introducir solo numeros\n" + "ERROR " + ex.getMessage());
-                ex.printStackTrace();
-            }
-*/
