@@ -129,7 +129,7 @@ public class Mastermind extends javax.swing.JFrame {
                             .addComponent(jLabel14Blancas)
                             .addComponent(jTextField1Blancas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton1Comprobar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1DescodificadorLayout.setVerticalGroup(
             jPanel1DescodificadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,28 +157,22 @@ public class Mastermind extends javax.swing.JFrame {
         jPanel2Codificador.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1Patron.setText("Patron");
-        jPanel2Codificador.add(jLabel1Patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, -1));
-        jPanel2Codificador.add(jTextField1Patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 70, -1));
+        jPanel2Codificador.add(jLabel1Patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, -1));
+        jPanel2Codificador.add(jTextField1Patron, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 70, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2Codificador, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1Descodificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1Descodificador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2Codificador, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1Descodificador, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2Codificador, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2Codificador, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -276,6 +270,3 @@ public class Mastermind extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }
-
-
-
