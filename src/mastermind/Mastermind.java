@@ -24,7 +24,7 @@ public class Mastermind extends javax.swing.JFrame {
     Random generadorNumeros = new Random();
     char numeros;
     char inicializarNumero = '0';
-    String codificador = " ";
+    String codificador = "";
 
     //variables para las fichas
     int rojas = 0;
@@ -32,6 +32,8 @@ public class Mastermind extends javax.swing.JFrame {
     String sinFichas = "0";
     //variables para el descodificador
     String cadena = "";
+    int numeroIntento = 0;
+    int ultimoIntento = 10;
 
     
     
@@ -44,28 +46,21 @@ public class Mastermind extends javax.swing.JFrame {
         jTextField1Blancas.setText(sinFichas); 
         //crear el codigo secreto
         //le sumamos el codigo char del 0
-        /*
-        Controlo que Q siempre sea mayor que 0 porque al entrar en el for 
-        tomaria valor -1 y esa posicion en un String no puede existir.
-        Todo esto es debido a que los String empiezan en la posición 0 y no en la 1.
-        Por eso al String le doy el primer valor como un espacio para hacer las 
-        todas las comprobaciones
-        */
         for(int i=inicioFor; i<=finalFor; i++){
-            numeros = (char) ((char)generadorNumeros.nextInt(8) + inicializarNumero);
+            numeros = (char)(generadorNumeros.nextInt(8) + inicializarNumero);
             int q=0;
             if(i != inicioFor){
-                for( q=i; q>inicioFor; q--){
+                for( q=i-1; q>=inicioFor; q--){
                     if(numeros == codificador.charAt(q)){
-                        numeros = (char) ((char)generadorNumeros.nextInt(8) + inicializarNumero);
-                        q = i+1;
+                        numeros = (char)(generadorNumeros.nextInt(8) + inicializarNumero);
+                        q = i;
                     }
                     
                 }
             }
             codificador += numeros;
-            jTextField1Patron.setText(codificador);
         }
+        jTextField1Patron.setText(codificador);
     }
 
     /**
@@ -197,17 +192,23 @@ public class Mastermind extends javax.swing.JFrame {
         blancas = Integer.valueOf(sinFichas);
         rojas = Integer.valueOf(sinFichas);
 
-        cadena = " " + jTextField1MeterCodigo.getText();
-        for(int j=inicioFor; j<=finalFor; j++){
-            for(int k=inicioFor; k<=finalFor; k++){
-                if(codificador.charAt(j) == (cadena.charAt(k))){
-                    blancas++;
-                    if(codificador.charAt(k) == (cadena.charAt(k))){
-                        rojas++;
+        cadena = jTextField1MeterCodigo.getText();
+        if(numeroIntento <= ultimoIntento){
+            for(int j=inicioFor; j<=finalFor; j++){
+                for(int k=inicioFor; k<=finalFor; k++){
+                    if(codificador.charAt(j) == (cadena.charAt(k))){
+                        blancas++;
+                        if(codificador.charAt(k) == (cadena.charAt(k))){
+                            rojas++;
+                        }
                     }
-                }
 
+                }
             }
+            numeroIntento++;
+        }
+        else{
+            new VentanaPerdedor(this, true).setVisible(true);
         }
         if(blancas > Integer.valueOf(sinFichas)){
             blancas -= rojas;
@@ -216,13 +217,9 @@ public class Mastermind extends javax.swing.JFrame {
         jTextField1Blancas.setText(String.valueOf(blancas)); 
         jTextArea1Descodificador.append(cadena + "\n");
         
-        
-        
         //terminar juego el mensaje no puede ir aky
-        for(int w=inicioFor; w<=finalFor; w++){
-            if(cadena.charAt(w) == codificador.charAt(w)){
-                new VentanaGanador(this, true).setVisible(true);                
-            }
+        if(cadena.equals(codificador)){
+            new VentanaGanador(this, true).setVisible(true);                
         }
     }//GEN-LAST:event_jButton1ComprobarActionPerformed
 
