@@ -186,7 +186,6 @@ public class Mastermind extends javax.swing.JFrame {
 
     private void jButton1ComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ComprobarActionPerformed
         //introduccion del codigo del jugador
-
         if(numeroIntento <= ULTIMO_NUMERO){
             jTextField1Rojas.setText(SIN_FICHAS);
             jTextField1Blancas.setText(SIN_FICHAS); 
