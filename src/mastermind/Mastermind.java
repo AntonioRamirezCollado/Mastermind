@@ -206,9 +206,11 @@ public class Mastermind extends javax.swing.JFrame {
 
             //terminar juego
             if(cadena.equals(codificador)){
+                jButton1Comprobar.setVisible(false);
                 new VentanaGanador(this, true).setVisible(true);                
             }
             if(numeroIntento == ULTIMO_NUMERO){
+                jButton1Comprobar.setVisible(false);
                 new VentanaPerdedor(this, true).setVisible(true);
             }
             numeroIntento++;
